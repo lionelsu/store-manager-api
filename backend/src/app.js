@@ -1,4 +1,5 @@
 const express = require('express');
+const errorMiddleware = require('./middlewares/errorMiddleware');
 const productsRouter = require('./routes/productsRouter');
 const salesRouter = require('./routes/salesRouter');
 
@@ -12,5 +13,7 @@ app.get('/', (_request, response) => {
 
 app.use('/products', productsRouter);
 app.use('/sales', salesRouter);
+
+app.use(errorMiddleware);
 
 module.exports = app;
