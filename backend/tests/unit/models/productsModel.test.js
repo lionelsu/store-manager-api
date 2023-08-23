@@ -26,4 +26,14 @@ describe('Testes para a camada Products Model', function () {
 
     expect(getProduct).to.be.deep.equal(expectedProduct);
   });
+
+  it('Deve ser possível adicionar um novo produto', async function () {
+    const { id, ...name } = products.create;
+
+    sinon.stub(connection, 'execute').resolves([{ insertId: id }]);
+
+    const createProduct = await productsModel.create(name);
+
+    expect(createProduct).to.be.equal(4);
+  });
 });

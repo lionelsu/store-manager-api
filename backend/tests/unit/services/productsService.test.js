@@ -42,4 +42,13 @@ describe('Testes para a camada Products Service', function () {
     expect(getProduct.status).to.be.equal('NOT_FOUND');
     expect(getProduct.data).to.be.deep.equal(expectedResult.data);
   });
+
+  it('Deve adicionar um novo produto no banco de dados', async function () {
+    const { id, ...name } = products.create;
+    sinon.stub(productsModel, 'create').resolves(id);
+
+    const createProduct = await productsService.create(name);
+    expect(createProduct.status).to.be.equal(productsResponse.create.status);
+    expect(createProduct.data).to.be.deep.equal(products.create);
+  });
 });

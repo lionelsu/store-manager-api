@@ -13,6 +13,11 @@ const products = {
       name: 'Escudo do Capitão América',
     },
   ],
+
+  create: {
+      id: 4,
+      name: 'Qualquer produto nerd',
+  },
 };
 
 const productsResponse = {
@@ -24,6 +29,11 @@ const productsResponse = {
   notFound: {
     status: 'NOT_FOUND',
     data: { message: 'Product not found' },
+  },
+
+  create: {
+    status: 'CREATED',
+    data: products.create,
   },
 };
 

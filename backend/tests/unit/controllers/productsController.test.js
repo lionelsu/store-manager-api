@@ -64,4 +64,20 @@ describe('Testes para a camada Products Controller', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(expectedResult.data);
   });
+
+  it('Deve adicionar um novo produto no banco de dados', async function () {
+    const { id, ...name } = products.create;
+
+    sinon.stub(productsService, 'create').resolves(productsResponse.create);
+    const req = { body: name };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.create(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(productsResponse.create.data);
+  });
 });
