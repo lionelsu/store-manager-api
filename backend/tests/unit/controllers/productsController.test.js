@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const productsService = require('../../../src/services/productsService');
 const productsController = require('../../../src/controllers/productsController');
-const { products, productsResponse } = require('../mocks/productsMock');
+const { products, productsResponse } = require('../../mocks/productsMock');
 
 chai.use(sinonChai);
 
@@ -12,7 +12,7 @@ describe('Testes para a camada Products Controller', function () {
   afterEach(function () {
     sinon.restore();
   });
-  
+
   it('Deve retornar todos os produtos', async function () {
     sinon.stub(productsService, 'getAll').resolves(productsResponse.success);
 
@@ -33,7 +33,7 @@ describe('Testes para a camada Products Controller', function () {
     const expectedResponse = { ...productsResponse.success, data: expectedProduct };
 
     const expectedResult = expectedProduct ? expectedResponse : productsResponse.notFound;
-  
+
     sinon.stub(productsService, 'getById').resolves(expectedResult);
     const req = { params: { id: productId } };
     const res = {
@@ -52,7 +52,7 @@ describe('Testes para a camada Products Controller', function () {
     const expectedResponse = { ...productsResponse.success, data: expectedProduct };
 
     const expectedResult = expectedProduct ? expectedResponse : productsResponse.notFound;
-  
+
     sinon.stub(productsService, 'getById').resolves(expectedResult);
     const req = { params: { id: productId } };
     const res = {

@@ -24,6 +24,27 @@ const salesModel = {
 
     return camelize(result);
   },
+
+  create: async (sales) => {
+    const date = new Date();
+    const [result] = await connection.execute(`INSERT INTO
+    sales (date) VALUES (?)`, [date]);
+
+    const id = result.insertId;
+
+    const insertSales = sales.map((sale) => connection.execute(
+    'INSERT INTO sales_products (sale_id, product_id, quantity) VALUES (?, ?, ?)',
+    [id, sale.productId, sale.quantity],
+    ));
+
+    await Promise.all(insertSales);
+
+    return id;
+  },
 };
+
+(async () => {
+  // console.log(await salesModel.create(teste));
+})();
 
 module.exports = salesModel;

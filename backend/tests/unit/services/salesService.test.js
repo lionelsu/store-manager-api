@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
 const salesModel = require('../../../src/models/salesModel');
-const { sales, salesResponse } = require('../mocks/salesMock');
+const { sales, salesResponse } = require('../../mocks/salesMock');
 const salesService = require('../../../src/services/salesService');
 
 describe('Testes para a camada Sales Service', function () {
@@ -54,5 +54,15 @@ describe('Testes para a camada Sales Service', function () {
 
     expect(getSale.status).to.be.equal('NOT_FOUND');
     expect(getSale.data).to.be.deep.equal(expectedResult.data);
+  });
+
+  it('Deve ser possível criar uma nova venda', async function () {
+    const { id, ...items } = salesResponse.create.data;
+    sinon.stub(salesModel, 'create').resolves(id);
+
+    const createSale = await salesService.create(items.itemsSold);
+
+    expect(createSale.status).to.be.equal(salesResponse.create.status);
+    expect(createSale.data).to.be.deep.equal(salesResponse.create.data);
   });
 });

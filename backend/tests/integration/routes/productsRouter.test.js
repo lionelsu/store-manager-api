@@ -4,7 +4,7 @@ const chaiHttp = require('chai-http');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const app = require('../../../src/app');
-const { products } = require('../../unit/mocks/productsMock');
+const { products } = require('../../mocks/productsMock');
 
 chai.use(chaiHttp);
 
@@ -17,9 +17,9 @@ describe('Testes de integração para a rota /products', function () {
     const { id, ...name } = products.create;
     sinon.stub(connection, 'execute')
       .onFirstCall()
-        .resolves([{ insertId: id }])
+      .resolves([{ insertId: id }])
       .onSecondCall()
-        .resolves([products.create]);
+      .resolves([products.create]);
     const response = await chai.request(app).post('/products').send(name);
 
     expect(response.status).to.be.equal(201);
@@ -37,7 +37,7 @@ describe('Testes de integração para a rota /products', function () {
     const response = await chai.request(app).post('/products').send({ name: 'nerd' });
 
     expect(response.status).to.be.equal(422);
-    expect(response.body).to.be.deep.equal({ 
+    expect(response.body).to.be.deep.equal({
       message: '"name" length must be at least 5 characters long',
     });
   });

@@ -16,6 +16,12 @@ const salesService = {
 
     return { status: 'SUCCESSFUL', data: result };
   },
+
+  create: async (sales) => {
+    const result = await salesModel.create(sales);
+
+    return { status: 'CREATED', data: { id: result, itemsSold: sales } };
+  },
 };
 
 module.exports = salesService;

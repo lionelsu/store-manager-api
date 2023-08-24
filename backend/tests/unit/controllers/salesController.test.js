@@ -4,7 +4,7 @@ const sinon = require('sinon');
 const sinonChai = require('sinon-chai');
 const salesService = require('../../../src/services/salesService');
 const salesController = require('../../../src/controllers/salesController');
-const { sales, salesResponse } = require('../mocks/salesMock');
+const { sales, salesResponse } = require('../../mocks/salesMock');
 
 chai.use(sinonChai);
 
@@ -64,5 +64,19 @@ describe('Testes para a camada Sales Controller', function () {
 
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(expectedResult.data);
+  });
+
+  it('Deve ser possível criar uma nova venda através do método POST', async function () {
+    sinon.stub(salesService, 'create').resolves(salesResponse.create);
+    const req = { body: sales.create };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await salesController.create(req, res);
+
+    expect(res.status).to.have.been.calledWith(201);
+    expect(res.json).to.have.been.calledWith(salesResponse.create.data);
   });
 });

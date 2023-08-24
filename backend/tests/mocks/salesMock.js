@@ -1,9 +1,4 @@
-const timeStamp = () => {
-  const date = new Date();
-  const isoStamp = date.toISOString();
-
-  return isoStamp;
-};
+const timeStamp = () => new Date().toISOString();
 
 const sales = {
   get: [
@@ -25,12 +20,28 @@ const sales = {
       quantity: 15,
     },
   ],
+
+  create: [
+    {
+      productId: 1,
+      quantity: 1,
+    },
+    {
+      productId: 2,
+      quantity: 5,
+    },
+  ],
 };
 
 const salesResponse = {
   success: {
     status: 'SUCCESSFUL',
     data: sales.get,
+  },
+
+  create: {
+    status: 'CREATED',
+    data: { id: 3, itemsSold: sales.create },
   },
 
   notFound: {
