@@ -21,6 +21,14 @@ const productsController = {
   
     return res.status(mapStatusHTTP(status)).json(data);
   },
+
+  update: async (req, res) => {
+    const { id } = req.params;
+    const { body } = req;
+    const { status, data } = await productsService.update(id, body);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  },
 };
 
 module.exports = productsController;

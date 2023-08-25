@@ -18,15 +18,26 @@ const productsModel = {
 
     return result.insertId;
   },
+
+  update: async (id, product) => {
+    const { name } = product;
+
+    const [result] = await connection.execute(`UPDATE
+      products SET name = ? WHERE id = ?`, [name, id]);
+
+    console.log(result);
+    return result;
+  },
 };
 
 /*
-const teste = 3;
+const teste = {
+  name: 'Martelo do Batman',
+};
 
 (async () => {
-  const saida = await productsModel.getById(teste);
-  const saidaArray = [saida];
-  console.log(saidaArray);
+  const saida = await productsModel.update(1, teste);
+  console.log(saida);
 })();
 */
 

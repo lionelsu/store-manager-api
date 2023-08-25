@@ -2,7 +2,7 @@ const { expect } = require('chai');
 const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const productsModel = require('../../../src/models/productsModel');
-const { products } = require('../../mocks/productsMock');
+const { products, productsResponse, resultHeader } = require('../../mocks/productsMock');
 
 describe('Testes para a camada Products Model', function () {
   afterEach(function () {
@@ -35,5 +35,14 @@ describe('Testes para a camada Products Model', function () {
     const createProduct = await productsModel.create(name);
 
     expect(createProduct).to.be.equal(4);
+  });
+
+  it('Deve ser possível atualizar um produto existente', async function () {
+    const { name } = productsResponse.update.data;
+    sinon.stub(connection, 'execute').resolves([resultHeader]);
+
+    const updateProduct = await productsModel.update(1, name);
+
+    expect(updateProduct.affectedRows).to.be.equal(1);
   });
 });

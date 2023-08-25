@@ -10,10 +10,10 @@ const productsService = {
   getById: async (id) => {
     const result = await productsModel.getById(id);
 
-    if (!result || result.length === 0) {
+    if (!result) {
       return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
     }
-    
+
     return { status: 'SUCCESSFUL', data: result };
   },
 
@@ -26,6 +26,12 @@ const productsService = {
     };
 
     return { status: 'CREATED', data: productCreated };
+  },
+
+  update: async (id, product) => {
+    await productsModel.update(id, product);
+
+    return productsService.getById(id);
   },
 };
 

@@ -7,5 +7,6 @@ const productsRouter = Router();
 productsRouter.get('/', productsController.getAll);
 productsRouter.get('/:id', productsController.getById);
 productsRouter.post('/', productSchema.isProductName, productsController.create);
+productsRouter.put('/:id', productSchema.isProductName, productsController.update);
 
 module.exports = productsRouter;
