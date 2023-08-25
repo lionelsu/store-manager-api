@@ -10,7 +10,7 @@ const productsService = {
   getById: async (id) => {
     const result = await productsModel.getById(id);
 
-    if (!result) {
+    if (!result || result.length === 0) {
       return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
     }
     

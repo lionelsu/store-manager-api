@@ -43,8 +43,4 @@ const salesModel = {
   },
 };
 
-(async () => {
-  // console.log(await salesModel.create(teste));
-})();
-
 module.exports = salesModel;

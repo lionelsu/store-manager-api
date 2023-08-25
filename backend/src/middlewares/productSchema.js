@@ -5,12 +5,33 @@ const productSchema = {
   isProductName: schemaValidation(Joi.object({
     name: Joi.string().required().empty('').min(5),
   })),
+
+  isSaleValid: schemaValidation(Joi.array().items(
+    Joi.object({
+      productId: Joi.number().integer().required().empty('')
+        .min(1)
+        .label('productId'),
+      quantity: Joi.number().required().empty('').min(1)
+        .label('quantity'),
+    }),
+  )),
 };
 
 /*
-(async () => {
-  const { type } = await productSchema.isProductName({ name: '34' });
-  console.log(type);
+const teste = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 1,
+    quantity: 5,
+  },
+];
+
+(() => {
+  const result = productSchema.isSaleValid.validate(teste);
+  console.log(result);
 })();
 */
 

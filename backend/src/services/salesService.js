@@ -1,3 +1,4 @@
+const productsModel = require('../models/productsModel');
 const salesModel = require('../models/salesModel');
 
 const salesService = {
@@ -18,10 +19,44 @@ const salesService = {
   },
 
   create: async (sales) => {
+    const allProductsExist = await Promise.all(
+      sales.map(async (sale) => {
+        const productExists = await productsModel.getById(sale.productId);
+        return !!productExists;
+      }),
+    );
+    
+    if (!allProductsExist.every((exists) => exists)) {
+      return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+    }
+
     const result = await salesModel.create(sales);
 
-    return { status: 'CREATED', data: { id: result, itemsSold: sales } };
+    const saleCreated = {
+      id: result,
+      itemsSold: sales,
+    };
+
+    return { status: 'CREATED', data: saleCreated };
   },
 };
+
+/*
+const teste = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 1,
+    quantity: 5,
+  },
+];
+
+(async () => {
+  const result = await salesService.create(teste);
+  console.log(result);
+})();
+*/
 
 module.exports = salesService;

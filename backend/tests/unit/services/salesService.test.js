@@ -65,4 +65,21 @@ describe('Testes para a camada Sales Service', function () {
     expect(createSale.status).to.be.equal(salesResponse.create.status);
     expect(createSale.data).to.be.deep.equal(salesResponse.create.data);
   });
+
+  it('Deve retornar "Product not found" caso tente realizar um venda de um produto inexistente no banco de dados.', async function () {
+    const { itemsSold } = salesResponse.create.data;
+    sinon.stub(salesModel, 'create').resolves(itemsSold[0].productId);
+
+    const fakeSale = [
+      {
+        productId: 0,
+        quantity: 2,
+      },
+    ];
+
+    const createSale = await salesService.create(fakeSale);
+
+    expect(createSale.status).to.be.equal('NOT_FOUND');
+    expect(createSale.data).to.be.deep.equal({ message: 'Product not found' });
+  });
 });

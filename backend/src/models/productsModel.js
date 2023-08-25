@@ -21,8 +21,12 @@ const productsModel = {
 };
 
 /*
+const teste = 3;
+
 (async () => {
-  console.log(await productsModel);
+  const saida = await productsModel.getById(teste);
+  const saidaArray = [saida];
+  console.log(saidaArray);
 })();
 */
 
