@@ -3,7 +3,7 @@ const sinon = require('sinon');
 // const connection = require('../../../src/models/connection');
 const productsModel = require('../../../src/models/productsModel');
 const productsService = require('../../../src/services/productsService');
-const { products, productsResponse } = require('../../mocks/productsMock');
+const { products, productsResponse, resultHeader } = require('../../mocks/productsMock');
 
 describe('Testes para a camada Products Service', function () {
   afterEach(function () {
@@ -50,5 +50,25 @@ describe('Testes para a camada Products Service', function () {
     const createProduct = await productsService.create(name);
     expect(createProduct.status).to.be.equal(productsResponse.create.status);
     expect(createProduct.data).to.be.deep.equal(products.create);
+  });
+
+  it('Deve ser possível atualizar um produto no banco de dados', async function () {
+    const productId = 1;
+    const updatedName = 'Martelo do Batman';
+  
+    // Configurar o stub para productsModel.getById
+    sinon.stub(productsModel, 'getById')
+      .withArgs(productId)
+      .resolves(products.update);
+  
+    // Configurar o stub para productsModel.update
+    sinon.stub(productsModel, 'update')
+      .withArgs(productId, { name: updatedName })
+      .resolves(resultHeader);
+  
+    const updateProduct = await productsService.update(productId, { name: updatedName });
+  
+    expect(updateProduct.status).to.be.equal(productsResponse.update.status);
+    expect(updateProduct.data).to.be.deep.equal({ id: productId, name: updatedName });
   });
 });

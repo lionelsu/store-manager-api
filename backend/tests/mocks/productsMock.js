@@ -18,6 +18,11 @@ const products = {
       id: 4,
       name: 'Qualquer produto nerd',
   },
+
+  update: {
+    id: 1,
+    name: 'Martelo do Batman',
+  },
 };
 
 const productsResponse = {

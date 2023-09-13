@@ -80,4 +80,20 @@ describe('Testes para a camada Products Controller', function () {
     expect(res.status).to.have.been.calledWith(201);
     expect(res.json).to.have.been.calledWith(productsResponse.create.data);
   });
+
+  it('Deve ser possível atualizar um produto', async function () {
+    const { id, ...name } = products.update;
+
+    sinon.stub(productsService, 'update').resolves(productsResponse.update);
+    const req = { params: { id }, body: name };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.update(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(name);
+  });
 });
