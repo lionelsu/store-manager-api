@@ -37,11 +37,27 @@ describe('Testes para a camada Sales Model', function () {
     expect(createSale).to.be.equal(3);
   });
 
-  it('Deve ser possível deletar um produto existente', async function () {
+  it('Deve ser possível deletar uma venda existente', async function () {
     sinon.stub(connection, 'execute').resolves([resultHeader]);
 
-    const deleteProduct = await salesModel.delete(1);
+    const deleteSale = await salesModel.delete(1);
 
-    expect(deleteProduct.affectedRows).to.be.equal(1);
+    expect(deleteSale.affectedRows).to.be.equal(1);
+  });
+
+  it('Deve ser possível atualizar a quantidade de um produto existente', async function () {
+    sinon.stub(connection, 'execute').resolves([resultHeader]);
+
+    const updateQuantity = await salesModel.update(1, 1, 999);
+
+    expect(updateQuantity.affectedRows).to.be.equal(1);
+  });
+
+  it('Deve retornar a quantidade atualizada do banco de dados', async function () {
+    sinon.stub(connection, 'execute').resolves([[salesResponse.update.data]]);
+
+    const updateQuantity = await salesModel.updatedQuantity(1, 1);
+
+    expect(updateQuantity).to.be.deep.equal(salesResponse.update.data);
   });
 });

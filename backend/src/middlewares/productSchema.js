@@ -15,6 +15,10 @@ const productSchema = {
         .label('quantity'),
     }),
   )),
+
+  isUpdatedSaleValid: schemaValidation(Joi.object({
+    quantity: Joi.number().required().empty('').min(1),
+  })),
 };
 
 /*

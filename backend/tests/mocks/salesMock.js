@@ -31,6 +31,13 @@ const sales = {
       quantity: 5,
     },
   ],
+
+  update: {
+    date: timeStamp(),
+    productId: 1,
+    quantity: 999,
+    saleId: 1,
+  },
 };
 
 const salesResponse = {
@@ -51,6 +58,11 @@ const salesResponse = {
 
   delete: {
     status: 'DELETED',
+  },
+
+  update: {
+    status: 'SUCCESSFUL',
+    data: sales.update,
   },
 };
 

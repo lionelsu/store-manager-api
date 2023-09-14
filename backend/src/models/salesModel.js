@@ -48,6 +48,46 @@ const salesModel = {
 
     return result;
   },
+
+  update: async (saleId, productId, quantity) => {
+    const [result] = await connection.execute(`UPDATE
+      sales_products 
+      SET quantity = ? 
+      WHERE sale_id = ? 
+      AND product_id = ?`, [quantity, saleId, productId]);
+
+    return result;
+  },
+
+  updatedQuantity: async (saleId, productId) => {
+    const [[result]] = await connection.execute(`SELECT
+      s.date, sp.product_id, sp.quantity, sp.sale_id
+      FROM sales s
+      INNER JOIN sales_products sp
+      ON s.id = sp.sale_id
+      WHERE sp.sale_id = ?
+      AND sp.product_id = ?`, [saleId, productId]);
+
+    return camelize(result);
+  },
 };
+
+/*
+const teste = [
+  {
+    productId: 1,
+    quantity: 1,
+  },
+  {
+    productId: 1,
+    quantity: 5,
+  },
+];
+
+(async () => {
+  const result = await salesModel.updatedQuantity(1, 1);
+  console.log(result);
+})();
+*/
 
 module.exports = salesModel;

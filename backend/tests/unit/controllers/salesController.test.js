@@ -114,4 +114,19 @@ describe('Testes para a camada Sales Controller', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(salesResponse.notFound.data);
   });
+
+  it('Deve ser possível atualizar a quantidade de um produto de uma venda', async function () {
+    sinon.stub(salesService, 'update').resolves(salesResponse.update);
+
+    const req = { params: { saleId: 1, productId: 1 }, body: { quantity: 999 } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await salesController.update(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(salesResponse.update.data);
+  });
 });

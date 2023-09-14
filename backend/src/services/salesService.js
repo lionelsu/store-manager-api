@@ -49,6 +49,26 @@ const salesService = {
 
     return { status: 'DELETED' };
   },
+
+  update: async (saleId, productId, quantity) => {
+    const saleExists = await salesModel.getById(saleId);
+    if (!saleExists || saleExists.length === 0) {
+      return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+    }
+
+    const productExists = saleExists
+      .find((product) => product.productId === Number(productId));
+
+    if (!productExists) {
+      return { status: 'NOT_FOUND', data: { message: 'Product not found in sale' } };
+    }
+
+    await salesModel.update(saleId, productId, quantity);
+
+    const result = await salesModel.updatedQuantity(saleId, productId);
+
+    return { status: 'SUCCESSFUL', data: result };
+  },
 };
 
 /*

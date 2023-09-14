@@ -99,25 +99,59 @@ describe('Testes para a camada Sales Service', function () {
     expect(createSale.data).to.be.deep.equal({ message: 'Product not found' });
   });
 
-  it('Deve ser possível deletar um produto do banco de dados', async function () {
+  it('Deve ser possível deletar uma venda do banco de dados', async function () {
     const saleId = 1;
     sinon.stub(salesModel, 'delete')
       .withArgs(saleId)
       .resolves(resultHeader);
 
-    const deleteProduct = await salesService.delete(saleId);
+    const deleteSale = await salesService.delete(saleId);
 
-    expect(deleteProduct.status).to.be.equal(salesResponse.delete.status);
+    expect(deleteSale.status).to.be.equal(salesResponse.delete.status);
   });
 
-  it('Não deve ser possível deletar um inexistente produto do banco de dados', async function () {
+  it('Não deve ser possível deletar uma inexistente venda do banco de dados', async function () {
     const saleId = 5;
     sinon.stub(salesModel, 'delete')
       .withArgs(saleId)
       .resolves({ ...resultHeader, affectedRows: 0 });
 
-    const deleteProduct = await salesService.delete(saleId);
+    const deleteSale = await salesService.delete(saleId);
 
-    expect(deleteProduct.status).to.be.equal(salesResponse.notFound.status);
+    expect(deleteSale.status).to.be.equal(salesResponse.notFound.status);
+  });
+
+  it('Deve ser possível atualizar a quantidade de um produto existente', async function () {
+    sinon.stub(salesModel, 'update')
+      .withArgs(1, 1, 999)
+      .resolves(resultHeader);
+
+    sinon.stub(salesModel, 'updatedQuantity')
+      .withArgs(1, 1)
+      .resolves(salesResponse.update.data);
+
+    const updateQuantity = await salesService.update(1, 1, 999);
+
+    expect(updateQuantity.status).to.be.equal(salesResponse.update.status);
+    expect(updateQuantity.data).to.be.deep.equal(salesResponse.update.data);
+  });
+
+  it('Não deve realizar a atualização do caso acima caso id da venda não exista', async function () {
+    sinon.stub(salesModel, 'update').resolves(resultHeader);
+
+    const updateQuantity = await salesService.update(0, 1, 999);
+
+    expect(updateQuantity.status).to.be.equal(salesResponse.notFound.status);
+    expect(updateQuantity.data).to.be.deep.equal(salesResponse.notFound.data);
+  });
+
+  it('Não deve realizar a atualização do caso acima caso id da venda não esteja relacionado com o id do produto', async function () {
+    sinon.stub(salesModel, 'update').resolves(resultHeader);
+
+    const updateQuantity = await salesService.update(1, 5, 999);
+
+    expect(updateQuantity.status).to.be.equal(salesResponse.notFound.status);
+    expect(updateQuantity.data)
+      .to.be.deep.equal({ message: 'Product not found in sale' });
   });
 });

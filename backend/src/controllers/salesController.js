@@ -32,6 +32,15 @@ const salesController = {
 
     return res.status(mapStatusHTTP(status)).end();
   },
+
+  update: async (req, res) => {
+    const { saleId, productId } = req.params;
+    const { quantity } = req.body;
+
+    const { status, data } = await salesService.update(saleId, productId, quantity);
+
+    res.status(mapStatusHTTP(status)).json(data);
+  },
 };
 
 module.exports = salesController;
