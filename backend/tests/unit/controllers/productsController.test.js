@@ -96,4 +96,39 @@ describe('Testes para a camada Products Controller', function () {
     expect(res.status).to.have.been.calledWith(200);
     expect(res.json).to.have.been.calledWith(name);
   });
+
+  it('Deve ser possível deletar um produto', async function () {
+    const productId = 1;
+    sinon.stub(productsService, 'delete')
+      .withArgs(productId)
+      .resolves(productsResponse.delete);
+
+    const req = { params: { id: productId } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      end: sinon.stub(),
+    };
+
+    await productsController.delete(req, res);
+
+    expect(res.status).to.have.been.calledWith(204);
+  });
+
+  it('Não deve ser possível deletar um produto inexistente', async function () {
+    const productId = 5;
+    sinon.stub(productsService, 'delete')
+      .withArgs(productId)
+      .resolves(productsResponse.notFound);
+
+    const req = { params: { id: productId } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.delete(req, res);
+
+    expect(res.status).to.have.been.calledWith(404);
+    expect(res.json).to.have.been.calledWith(productsResponse.notFound.data);
+  });
 });

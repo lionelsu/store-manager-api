@@ -71,4 +71,26 @@ describe('Testes para a camada Products Service', function () {
     expect(updateProduct.status).to.be.equal(productsResponse.update.status);
     expect(updateProduct.data).to.be.deep.equal({ id: productId, name: updatedName });
   });
+
+  it('Deve ser possível deletar um produto do banco de dados', async function () {
+    const productId = 1;
+    sinon.stub(productsModel, 'delete')
+      .withArgs(productId)
+      .resolves(resultHeader);
+
+    const deleteProduct = await productsService.delete(productId);
+
+    expect(deleteProduct.status).to.be.equal(productsResponse.delete.status);
+  });
+
+  it('Não deve ser possível deletar um inexistente produto do banco de dados', async function () {
+    const productId = 5;
+    sinon.stub(productsModel, 'delete')
+      .withArgs(productId)
+      .resolves({ ...resultHeader, affectedRows: 0 });
+
+    const deleteProduct = await productsService.delete(productId);
+
+    expect(deleteProduct.status).to.be.equal(productsResponse.notFound.status);
+  });
 });

@@ -33,6 +33,16 @@ const productsService = {
 
     return productsService.getById(id);
   },
+
+  delete: async (id) => {
+    const { affectedRows } = await productsModel.delete(id);
+
+    if (affectedRows === 0) {
+      return { status: 'NOT_FOUND', data: { message: 'Product not found' } };
+    }
+
+    return { status: 'DELETED' };
+  },
 };
 
 module.exports = productsService;

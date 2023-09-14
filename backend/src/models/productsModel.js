@@ -25,7 +25,13 @@ const productsModel = {
     const [result] = await connection.execute(`UPDATE
       products SET name = ? WHERE id = ?`, [name, id]);
 
-    console.log(result);
+    return result;
+  },
+
+  delete: async (id) => {
+    const [result] = await connection.execute(`DELETE
+      FROM products WHERE id = ?`, [id]);
+
     return result;
   },
 };
@@ -36,7 +42,7 @@ const teste = {
 };
 
 (async () => {
-  const saida = await productsModel.update(1, teste);
+  const saida = await productsModel.delete(1);
   console.log(saida);
 })();
 */

@@ -23,6 +23,11 @@ const products = {
     id: 1,
     name: 'Martelo do Batman',
   },
+
+  delete: {
+    id: 1,
+    name: 'Martelo de Thor',
+  },
 };
 
 const productsResponse = {
@@ -44,6 +49,10 @@ const productsResponse = {
   update: {
     status: 'SUCCESSFUL',
     data: { name: 'Martelo do Batman' },
+  },
+
+  delete: {
+    status: 'DELETED',
   },
 };
 

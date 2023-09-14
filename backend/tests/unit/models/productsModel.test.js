@@ -45,4 +45,12 @@ describe('Testes para a camada Products Model', function () {
 
     expect(updateProduct.affectedRows).to.be.equal(1);
   });
+
+  it('Deve ser possível deletar um produto existente', async function () {
+    sinon.stub(connection, 'execute').resolves([resultHeader]);
+
+    const deleteProduct = await productsModel.delete(1);
+
+    expect(deleteProduct.affectedRows).to.be.equal(1);
+  });
 });
