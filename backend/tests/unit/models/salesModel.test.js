@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const connection = require('../../../src/models/connection');
 const salesModel = require('../../../src/models/salesModel');
 const { sales, salesResponse } = require('../../mocks/salesMock');
+const { resultHeader } = require('../../mocks/productsMock');
 
 describe('Testes para a camada Sales Model', function () {
   afterEach(function () {
@@ -34,5 +35,13 @@ describe('Testes para a camada Sales Model', function () {
 
     const createSale = await salesModel.create(items.itemsSold);
     expect(createSale).to.be.equal(3);
+  });
+
+  it('Deve ser possível deletar um produto existente', async function () {
+    sinon.stub(connection, 'execute').resolves([resultHeader]);
+
+    const deleteProduct = await salesModel.delete(1);
+
+    expect(deleteProduct.affectedRows).to.be.equal(1);
   });
 });

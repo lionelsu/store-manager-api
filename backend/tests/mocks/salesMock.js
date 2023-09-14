@@ -48,6 +48,10 @@ const salesResponse = {
     status: 'NOT_FOUND',
     data: { message: 'Sale not found' },
   },
+
+  delete: {
+    status: 'DELETED',
+  },
 };
 
 module.exports = {

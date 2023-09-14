@@ -3,6 +3,7 @@ const sinon = require('sinon');
 const salesModel = require('../../../src/models/salesModel');
 const { sales, salesResponse } = require('../../mocks/salesMock');
 const salesService = require('../../../src/services/salesService');
+const { resultHeader } = require('../../mocks/productsMock');
 
 describe('Testes para a camada Sales Service', function () {
   afterEach(function () {
@@ -96,5 +97,27 @@ describe('Testes para a camada Sales Service', function () {
 
     expect(createSale.status).to.be.equal('NOT_FOUND');
     expect(createSale.data).to.be.deep.equal({ message: 'Product not found' });
+  });
+
+  it('Deve ser possível deletar um produto do banco de dados', async function () {
+    const saleId = 1;
+    sinon.stub(salesModel, 'delete')
+      .withArgs(saleId)
+      .resolves(resultHeader);
+
+    const deleteProduct = await salesService.delete(saleId);
+
+    expect(deleteProduct.status).to.be.equal(salesResponse.delete.status);
+  });
+
+  it('Não deve ser possível deletar um inexistente produto do banco de dados', async function () {
+    const saleId = 5;
+    sinon.stub(salesModel, 'delete')
+      .withArgs(saleId)
+      .resolves({ ...resultHeader, affectedRows: 0 });
+
+    const deleteProduct = await salesService.delete(saleId);
+
+    expect(deleteProduct.status).to.be.equal(salesResponse.notFound.status);
   });
 });

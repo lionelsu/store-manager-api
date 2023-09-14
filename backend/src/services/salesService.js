@@ -39,6 +39,16 @@ const salesService = {
 
     return { status: 'CREATED', data: saleCreated };
   },
+
+  delete: async (id) => {
+    const { affectedRows } = await salesModel.delete(id);
+
+    if (affectedRows === 0) {
+      return { status: 'NOT_FOUND', data: { message: 'Sale not found' } };
+    }
+
+    return { status: 'DELETED' };
+  },
 };
 
 /*

@@ -41,6 +41,13 @@ const salesModel = {
 
     return id;
   },
+
+  delete: async (id) => {
+    const [result] = await connection.execute(`DELETE
+      FROM sales WHERE id = ?`, [id]);
+
+    return result;
+  },
 };
 
 module.exports = salesModel;
