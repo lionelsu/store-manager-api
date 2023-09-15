@@ -15,6 +15,13 @@ const productsController = {
     return res.status(mapStatusHTTP(status)).json(data);
   },
 
+  getBySearch: async (req, res) => {
+    const { q } = req.query;
+    const { status, data } = await productsService.getBySearch(q);
+
+    return res.status(mapStatusHTTP(status)).json(data);
+  },
+
   create: async (req, res) => {
     const { body } = req;
     const { status, data } = await productsService.create(body);

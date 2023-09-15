@@ -17,6 +17,14 @@ const productsService = {
     return { status: 'SUCCESSFUL', data: result };
   },
 
+  getBySearch: async (q) => {
+    const products = await productsModel.getAll();
+    const filteredProducts = products
+      .filter(({ name }) => name.toLowerCase().includes(q.toLowerCase()));
+  
+    return { status: 'SUCCESSFUL', data: filteredProducts };
+  },
+
   create: async ({ name }) => {
     const createProduct = await productsModel.create(name);
 

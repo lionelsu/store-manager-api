@@ -4,6 +4,7 @@ const productSchema = require('../middlewares/productSchema');
 
 const productsRouter = Router();
 
+productsRouter.get('/search', productsController.getBySearch);
 productsRouter.get('/', productsController.getAll);
 productsRouter.get('/:id', productsController.getById);
 productsRouter.post('/', productSchema.isProductName, productsController.create);

@@ -131,4 +131,33 @@ describe('Testes para a camada Products Controller', function () {
     expect(res.status).to.have.been.calledWith(404);
     expect(res.json).to.have.been.calledWith(productsResponse.notFound.data);
   });
+
+  it('Deve ser possível buscar um produto específico pelo query param', async function () {
+    const productsRes = {
+      success: {
+        status: 'SUCCESSFUL',
+        data: [
+          {
+            id: 1,
+            name: 'Martelo de Thor',
+          },
+        ],
+      },
+    };
+
+    sinon.stub(productsService, 'getBySearch')
+      .withArgs('Martelo')
+      .resolves(productsRes.success);
+
+    const req = { query: { q: 'Martelo' } };
+    const res = {
+      status: sinon.stub().returnsThis(),
+      json: sinon.stub(),
+    };
+
+    await productsController.getBySearch(req, res);
+
+    expect(res.status).to.have.been.calledWith(200);
+    expect(res.json).to.have.been.calledWith(productsRes.success.data);
+  });
 });

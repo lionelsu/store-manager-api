@@ -93,4 +93,13 @@ describe('Testes para a camada Products Service', function () {
 
     expect(deleteProduct.status).to.be.equal(productsResponse.notFound.status);
   });
+
+  it('Deve retornar a busca do produto desejado', async function () {
+    sinon.stub(productsModel, 'getAll').resolves(products.get);
+
+    const getBySearch = await productsService.getBySearch('Martelo');
+
+    expect(getBySearch.status).to.be.equal(productsResponse.success.status);
+    expect(getBySearch.data).to.be.deep.equal([products.get[0]]);
+  });
 });
