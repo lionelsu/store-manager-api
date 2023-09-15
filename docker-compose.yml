@@ -1,13 +1,13 @@
+version: '3'
 services:
   backend:
     build: backend
     container_name: store_manager
     ports:
-      - 3001:3001 # porta padrão da aplicação
-      - 9229:9229 # porta para debugging
-    command: run dev # roda aplicação com nodemon
+      - 3001:3001
+      - 9229:9229
+    command: run dev
     volumes:
-      # vincula pasta local com a dentro do container
       - ./backend/src:/app/src
       - ./backend/tests:/app/tests
     environment:
@@ -19,19 +19,28 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    networks:
+      - store_manager_net
+
   db:
     image: mysql:8.0.32
     container_name: store_manager_db
     environment:
       MYSQL_ROOT_PASSWORD: password
       MYSQL_DATABASE: StoreManager
-    ports:
-      - 3306:3306
     healthcheck:
-      # Deve aguardar o banco ficar operacional
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       timeout: 10s
       retries: 5
     volumes:
-      # adiciona scripts SQL para serem executados ao iniciar a DB
       - ./sql:/docker-entrypoint-initdb.d
+    ports:
+      - 3306:3306
+    networks:
+      store_manager_net:
+        aliases:
+          - sm_remote_db
+
+networks:
+  store_manager_net:
+    name: store_manager_net
