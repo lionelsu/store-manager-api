@@ -5,6 +5,26 @@
 
 O Store Manager é uma API RESTful que oferece um conjunto completo de funcionalidades CRUD (Create, Read, Update, Delete) para atender às suas necessidades de gerenciamento de vendas (do tipo drop shipping). Este sistema foi desenvolvido com foco na qualidade, utilizando a metodologia TDD (Test-Driven Development) e seguindo uma arquitetura em camadas consistente, com os componentes Model, Service e Controller (MSC).
 
+<details>
+
+<summary>Ferramentas Utilizadas</summary>
+
+- **Tecnologias Principais:**
+  - Node.js
+  - Express.js
+  - MySQL Server
+
+- **Testes:**
+  - Mocha
+  - Chai
+  - Sinon
+
+- **Documentação:**
+  - Swagger
+  - Postman
+
+</details>
+
 ## Pré-Requisitos
 
 Utilize o Docker:
@@ -104,3 +124,17 @@ PORT: 3001
   ```bash
   npm run test:mutation
   ```
+
+## Habilidades desenvolvidas
+
+Usei o `Node.js` com o `Express.js` como base da minha aplicação, permitindo criar facilmente endpoints `HTTP` para atender às necessidades do sistema.
+
+O banco de dados `MySQL Server foi escolhido para armazenar dados relacionados a produtos, vendas e outros elementos cruciais do sistema.
+
+A qualidade do código foi garantida por meio de testes rigorosos usando `Mocha`, `Chai` e `Sinon`. Esses testes avaliaram minuciosamente os endpoints, serviços e funções para garantir que tudo funcionasse corretamente.
+
+Para documentar a `API`, utilizei o `Swagger`, criando um guia detalhado que inclui informações sobre rotas, parâmetros e exemplos práticos.
+
+Também disponibilizei uma coleção no `Postman` para facilitar testes e interações com a `API`.
+
+Com essas etapas concluídas, estou confiante na entrega de uma `API` sólida e funcional, pronta para atender às necessidades dos usuários.
