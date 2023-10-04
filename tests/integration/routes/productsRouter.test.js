@@ -2,7 +2,7 @@ const chai = require('chai');
 const { expect } = require('chai');
 const chaiHttp = require('chai-http');
 const sinon = require('sinon');
-const connection = require('../../../src/models/connection');
+const { connection } = require('../../../src/models/connection');
 const app = require('../../../src/app');
 const { products } = require('../../mocks/productsMock');
 

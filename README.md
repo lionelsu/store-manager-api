@@ -53,7 +53,7 @@ Utilize o Docker:
 3. Acesse a documentação da API no navegador:
 
     ```http
-    http://127.0.0.1:3001/
+    http://127.0.0.1:3001/docs/
     ```
 
 ## Uso
@@ -70,6 +70,12 @@ Linha de Comando Interativa, usada para **[testar](#testes)** a aplicação
 
 ```bash
 docker exec -it store_manager bash
+```
+
+Resetar o Banco de Dados (deve ser executado dentro da **[linha de comando interativa](#uso)**)
+
+```bash
+npm run db:reset
 ```
 
 ## Rotas da API

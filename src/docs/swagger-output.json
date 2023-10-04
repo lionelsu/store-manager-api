@@ -1,0 +1,320 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Store Manager API",
+    "description": "<p><strong>Store Manager</strong> is a <strong>RESTful API</strong> offering comprehensive <strong>CRUD</strong> functionality for <strong>sales management</strong>, specifically <strong>drop shipping</strong>. Developed with <strong>TDD</strong> methodology, it follows a layered architecture (<strong>MSC</strong>).</p>"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3001/"
+    },
+    {
+      "url": "https://localhost:3001/"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Products",
+      "description": "Endpoints"
+    }
+  ],
+  "paths": {
+    "/products/search": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint para obter um produto por id.",
+        "parameters": [
+          {
+            "name": "id",
+            "description": "ID do produto.",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "q",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/products/": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint to retrieve all products.",
+        "responses": {
+          "200": {
+            "description": "Returns a list of products.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllProducts"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/AllProducts"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "Endpoint to retrieve a product by ID.",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "Product ID."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Product by ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductById"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/ProductById"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/sales/": {
+      "get": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/sales/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      },
+      "delete": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        }
+      }
+    },
+    "/sales/{saleId}/products/{productId}/quantity": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "saleId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "productId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": ""
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AllProducts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number",
+              "example": 2
+            },
+            "name": {
+              "type": "string",
+              "example": "Traje de encolhimento"
+            }
+          }
+        },
+        "xml": {
+          "name": "AllProducts"
+        }
+      },
+      "ProductById": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "example": 1
+          },
+          "name": {
+            "type": "string",
+            "example": "Martelo de Thor"
+          }
+        },
+        "xml": {
+          "name": "ProductById"
+        }
+      },
+      "AddUser": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Jhon Doe"
+          },
+          "age": {
+            "type": "number",
+            "example": 29
+          },
+          "about": {
+            "type": "string",
+            "example": ""
+          }
+        },
+        "required": [
+          "name",
+          "age"
+        ],
+        "xml": {
+          "name": "AddUser"
+        }
+      }
+    }
+  }
+}

@@ -5,16 +5,16 @@ CREATE DATABASE StoreManager;
 USE StoreManager;
 
 CREATE TABLE products (
-  id INT NOT NULL auto_increment,
+  id INT NOT NULL AUTO_INCREMENT,
   name VARCHAR(30) NOT NULL,
-  PRIMARY KEY(id)
-) ENGINE=INNODB;
+  PRIMARY KEY (id)
+) ENGINE=InnoDB;
 
 CREATE TABLE sales (
-  id INT NOT NULL auto_increment,
+  id INT NOT NULL AUTO_INCREMENT,
   date DATETIME DEFAULT CURRENT_TIMESTAMP,
-  PRIMARY KEY(id)
-) ENGINE=INNODB;
+  PRIMARY KEY (id)
+) ENGINE=InnoDB;
 
 CREATE TABLE sales_products (
   sale_id INT NOT NULL,
@@ -26,6 +26,6 @@ CREATE TABLE sales_products (
   FOREIGN KEY (product_id)
     REFERENCES products (id)
     ON DELETE CASCADE
-)  ENGINE=INNODB;
+) ENGINE=InnoDB;
 
 SET SQL_SAFE_UPDATES = 0;

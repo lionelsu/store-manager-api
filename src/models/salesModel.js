@@ -1,5 +1,5 @@
 const camelize = require('camelize');
-const connection = require('./connection');
+const { connection } = require('./connection');
 
 const salesModel = {
   getAll: async () => {
