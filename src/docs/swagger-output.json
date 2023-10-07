@@ -3,7 +3,10 @@
   "info": {
     "version": "1.0.0",
     "title": "Store Manager API",
-    "description": "<p><strong>Store Manager</strong> is a <strong>RESTful API</strong> offering comprehensive <strong>CRUD</strong> functionality for <strong>sales management</strong>, specifically <strong>drop shipping</strong>. Developed with <strong>TDD</strong> methodology, it follows a layered architecture (<strong>MSC</strong>).</p>"
+    "description": "<p><strong>Store Manager</strong> is a <strong>RESTful API</strong> offering comprehensive <strong>CRUD</strong> functionality for <strong>sales management</strong>, specifically <strong>drop shipping</strong>. Developed with <strong>TDD</strong> methodology, it follows a layered architecture (<strong>MSC</strong>).</p>",
+    "contact": {
+      "email": "contatolionelsu@gmail.com"
+    }
   },
   "servers": [
     {
@@ -25,18 +28,14 @@
         "tags": [
           "Products"
         ],
-        "description": "Endpoint para obter um produto por id.",
+        "summary": "Search a product by name",
+        "description": "Endpoint to retrieve products based on a search query.",
         "parameters": [
           {
-            "name": "id",
-            "description": "ID do produto.",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
             "name": "q",
+            "description": "Search query string to filter products.",
+            "required": true,
+            "allowEmptyValue": true,
             "in": "query",
             "schema": {
               "type": "string"
@@ -44,8 +43,20 @@
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Returns a list of products based on the search criteria. If the search is empty, it returns a list of all available products.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Products"
+                }
+              }
+            }
           }
         }
       }
@@ -55,19 +66,20 @@
         "tags": [
           "Products"
         ],
+        "summary": "Get all products",
         "description": "Endpoint to retrieve all products.",
         "responses": {
           "200": {
-            "description": "Returns a list of products.",
+            "description": "Returns a list with all products.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AllProducts"
+                  "$ref": "#/components/schemas/Products"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/AllProducts"
+                  "$ref": "#/components/schemas/Products"
                 }
               }
             }
@@ -75,10 +87,80 @@
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "summary": "Add a new product",
+        "description": "This endpoint allows you to add a new product to the system.",
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Product created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "New product data.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Anel do Lanterna Verde"
+                  }
+                }
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Anel do Lanterna Verde"
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -88,6 +170,7 @@
         "tags": [
           "Products"
         ],
+        "summary": "Get a product by id",
         "description": "Endpoint to retrieve a product by ID.",
         "parameters": [
           {
@@ -102,16 +185,16 @@
         ],
         "responses": {
           "200": {
-            "description": "Product by ID.",
+            "description": "Returns a product by ID.",
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProductById"
+                  "$ref": "#/components/schemas/Products/items"
                 }
               },
               "application/xml": {
                 "schema": {
-                  "$ref": "#/components/schemas/ProductById"
+                  "$ref": "#/components/schemas/Products/items"
                 }
               }
             }
@@ -119,7 +202,11 @@
         }
       },
       "put": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "summary": "Update a product",
+        "description": "This endpoint allows you to update a product in the system.",
         "parameters": [
           {
             "name": "id",
@@ -127,17 +214,88 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the product to be  "
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Product updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "name": {
+                      "type": "string",
+                      "example": "string"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "Updated product data.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Martelo do Batman"
+                  }
+                }
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string",
+                    "example": "Martelo do Batman"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Products"
+        ],
+        "summary": "Delete a product",
+        "description": "This endpoint allows you to delete a product in the system.",
         "parameters": [
           {
             "name": "id",
@@ -145,12 +303,16 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the product to be deleted"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No content."
+          },
+          "404": {
+            "description": "Product not found"
           }
         }
       }
@@ -256,7 +418,7 @@
   },
   "components": {
     "schemas": {
-      "AllProducts": {
+      "Products": {
         "type": "array",
         "items": {
           "type": "object",
@@ -272,47 +434,7 @@
           }
         },
         "xml": {
-          "name": "AllProducts"
-        }
-      },
-      "ProductById": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "number",
-            "example": 1
-          },
-          "name": {
-            "type": "string",
-            "example": "Martelo de Thor"
-          }
-        },
-        "xml": {
-          "name": "ProductById"
-        }
-      },
-      "AddUser": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "Jhon Doe"
-          },
-          "age": {
-            "type": "number",
-            "example": 29
-          },
-          "about": {
-            "type": "string",
-            "example": ""
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ],
-        "xml": {
-          "name": "AddUser"
+          "name": "Products"
         }
       }
     }

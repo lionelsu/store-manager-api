@@ -9,6 +9,9 @@ const doc = {
       version: '1.0.0',
       title: 'Store Manager API',
       description: '<p><strong>Store Manager</strong> is a <strong>RESTful API</strong> offering comprehensive <strong>CRUD</strong> functionality for <strong>sales management</strong>, specifically <strong>drop shipping</strong>. Developed with <strong>TDD</strong> methodology, it follows a layered architecture (<strong>MSC</strong>).</p>',
+      contact: {
+        "email": "contatolionelsu@gmail.com",
+      },
   },
   host: 'localhost:3001',
   basePath: '/',
@@ -40,7 +43,7 @@ const doc = {
   },
   */
   definitions: {
-    AllProducts: [
+    Products: [
       {
         id: 1,
         name: "Martelo de Thor"
@@ -48,18 +51,9 @@ const doc = {
       {
         id: 2,
         name: "Traje de encolhimento"
-      }
+      },
       /* ... */
     ],
-    ProductById: {
-      id: 1,
-      name: "Martelo de Thor"
-    },
-    AddUser: {
-        $name: 'Jhon Doe',
-        $age: 29,
-        about: '',
-    },
   },
 };
 

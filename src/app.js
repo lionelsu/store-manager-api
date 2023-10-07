@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 
 // Swagger middleware
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+app.use('/v1/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Rotas da aplicação
 app.use('/products', productsRouter);
