@@ -3,7 +3,9 @@
 
 # Store Manager
 
-O Store Manager é uma API RESTful que oferece um conjunto completo de funcionalidades CRUD (Create, Read, Update, Delete) para atender às suas necessidades de gerenciamento de vendas (do tipo drop shipping). Este sistema foi desenvolvido com foco na qualidade, utilizando a metodologia TDD (Test-Driven Development) e seguindo uma arquitetura em camadas consistente, com os componentes Model, Service e Controller (MSC).
+[Documentação da API no Postman](https://documenter.getpostman.com/view/30159355/2s9YJgTLHB)
+
+O Store Manager API é uma solução completa de gerenciamento de vendas por drop shipping. Esta API oferece operações de CRUD (Create, Read, Update, Delete) para facilitar o gerenciamento de vendas. Desenvolvida com foco na qualidade e seguindo a metodologia TDD (Test-Driven Development), a API adota uma arquitetura em camadas consistente com Model, Service e Controller (MSC).
 
 <details>
 
@@ -53,7 +55,7 @@ Utilize o Docker:
 3. Acesse a documentação da API no navegador:
 
     ```http
-    http://127.0.0.1:3001/docs/
+    http://127.0.0.1:3001/v1/docs/
     ```
 
 ## Uso
@@ -97,17 +99,21 @@ npm run db:reset
 - **`PUT /sales/:saleId/products/:productId/quantity`**: Atualiza a quantidade de um produto em uma venda.
 - **`DELETE /sales/:id`**: Exclui uma venda pelo ID.
 
-## Configuração
+<details>
 
-Variáveis de ambiente dentro do container:
+  <summary>Configuração</summary>
 
-```mysql
-MYSQL_USER: root
-MYSQL_PASSWORD: password
-MYSQL_HOSTNAME: db
-MYSQL_PORT: 3306
-PORT: 3001
-```
+  Variáveis de ambiente dentro do container:
+
+  ```mysql
+  MYSQL_USER: root
+  MYSQL_PASSWORD: password
+  MYSQL_HOSTNAME: db
+  MYSQL_PORT: 3306
+  PORT: 3001
+  ```
+
+</details>
 
 ## Testes
 
@@ -135,11 +141,11 @@ PORT: 3001
 
 Usei o `Node.js` com o `Express.js` como base da minha aplicação, permitindo criar facilmente endpoints `HTTP` para atender às necessidades do sistema.
 
-O banco de dados `MySQL Server foi escolhido para armazenar dados relacionados a produtos, vendas e outros elementos cruciais do sistema.
+O banco de dados `MySQL Server` foi escolhido para armazenar dados relacionados a produtos, vendas e outros elementos cruciais do sistema.
 
 A qualidade do código foi garantida por meio de testes rigorosos usando `Mocha`, `Chai` e `Sinon`. Esses testes avaliaram minuciosamente os endpoints, serviços e funções para garantir que tudo funcionasse corretamente.
 
-Para documentar a `API`, utilizei o `Swagger`, criando um guia detalhado que inclui informações sobre rotas, parâmetros e exemplos práticos.
+Para documentar a `API`, utilizei o `Swagger`, que inclui informações sobre rotas, parâmetros e exemplos práticos.
 
 Também disponibilizei uma coleção no `Postman` para facilitar testes e interações com a `API`.
 
