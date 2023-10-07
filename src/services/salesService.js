@@ -71,22 +71,4 @@ const salesService = {
   },
 };
 
-/*
-const teste = [
-  {
-    productId: 1,
-    quantity: 1,
-  },
-  {
-    productId: 1,
-    quantity: 5,
-  },
-];
-
-(async () => {
-  const result = await salesService.create(teste);
-  console.log(result);
-})();
-*/
-
 module.exports = salesService;

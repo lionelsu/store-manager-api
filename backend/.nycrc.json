@@ -1,6 +1,0 @@
-{
-  "all": true,
-  "include": ["src/**/*.js"],
-  "exclude": ["src/{app,server}.js"],
-  "reporter": ["json-summary", "text"]
-}

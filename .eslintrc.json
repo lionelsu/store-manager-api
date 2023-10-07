@@ -18,6 +18,12 @@
       "rules": {
         "max-len": "off"
       }
+    },
+    {
+      "files": ["src/docs/swagger.js"],
+      "rules": {
+        "max-len": "off"
+      }
     }
   ]
 }

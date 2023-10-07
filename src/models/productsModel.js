@@ -1,4 +1,4 @@
-const connection = require('./connection');
+const { connection } = require('./connection');
 
 const productsModel = {
   getAll: async () => {
@@ -35,16 +35,5 @@ const productsModel = {
     return result;
   },
 };
-
-/*
-const teste = {
-  name: 'Martelo do Batman',
-};
-
-(async () => {
-  const saida = await productsModel.delete(1);
-  console.log(saida);
-})();
-*/
 
 module.exports = productsModel;

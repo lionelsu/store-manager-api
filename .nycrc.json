@@ -1,0 +1,10 @@
+{
+  "all": true,
+  "include": ["src/**/*.js"],
+  "exclude": [
+    "src/{app,server}.js",
+    "src/models/connection.js",
+    "src/docs/*"
+  ],
+  "reporter": ["json-summary", "text"]
+}

@@ -1,6 +1,6 @@
 const { expect } = require('chai');
 const sinon = require('sinon');
-const connection = require('../../../src/models/connection');
+const { connection } = require('../../../src/models/connection');
 const salesModel = require('../../../src/models/salesModel');
 const { sales, salesResponse } = require('../../mocks/salesMock');
 const { resultHeader } = require('../../mocks/productsMock');

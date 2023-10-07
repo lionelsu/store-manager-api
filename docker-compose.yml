@@ -1,15 +1,16 @@
 version: '3'
 services:
   backend:
-    build: backend
+  # diretorio onde o docker file se encontra
+    build: .
     container_name: store_manager
     ports:
       - 3001:3001
       - 9229:9229
     command: run dev
     volumes:
-      - ./backend/src:/app/src
-      - ./backend/tests:/app/tests
+      - ./src:/app/src
+      - ./tests:/app/tests
     environment:
       MYSQL_USER: root
       MYSQL_PASSWORD: password
@@ -33,7 +34,7 @@ services:
       timeout: 10s
       retries: 5
     volumes:
-      - ./sql:/docker-entrypoint-initdb.d
+      - ./sql:/docker-entrypoint-initdb.d/
     ports:
       - 3306:3306
     networks:
