@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/@stryker-mutator/core/schema/stryker-schema.json",
+  "packageManager": "npm",
+  "reporters": ["html", "clear-text", "json", "progress"],
+  "mutate": [
+    "src/**/*.js",
+    "!src/{app,server}.js",
+    "!src/models/connection.js",
+    "!src/docs/*"
+  ],
+  "mutator": {
+    "excludedMutations": [
+      "StringLiteral",
+      "ObjectLiteral",
+      "ArrayDeclaration",
+      "ArrowFunction"
+    ]
+  },
+  "testRunner": "mocha",
+  "coverageAnalysis": "perTest",
+  "ignoreStatic": true
+}

@@ -36,15 +36,4 @@ const productsModel = {
   },
 };
 
-/*
-const teste = {
-  name: 'Martelo do Batman',
-};
-
-(async () => {
-  const saida = await productsModel.delete(1);
-  console.log(saida);
-})();
-*/
-
 module.exports = productsModel;
