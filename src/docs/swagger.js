@@ -19,10 +19,14 @@ const doc = {
   consumes: ['application/json'],
   produces: ['application/json'],
   tags: [
-      {
-          name: 'Products',
-          description: 'Endpoints',
-      },
+    {
+        name: 'Products',
+        description: 'Endpoints',
+    },
+    {
+      name: 'Sales',
+      description: 'Endpoints',
+    },
   ],
   /*
   securityDefinitions: {
@@ -52,6 +56,21 @@ const doc = {
         id: 2,
         name: "Traje de encolhimento"
       },
+      /* ... */
+    ],
+    Sales: [
+      {
+        saleId: 1,
+        date: "2021-09-09T04:54:29.000Z",
+        productId: 1,
+        quantity: 2
+      },
+      {
+        saleId: 1,
+        date: "2021-09-09T04:54:54.000Z",
+        productId: 2,
+        quantity: 2
+      }
       /* ... */
     ],
   },

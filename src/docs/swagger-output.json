@@ -20,6 +20,10 @@
     {
       "name": "Products",
       "description": "Endpoints"
+    },
+    {
+      "name": "Sales",
+      "description": "Endpoints"
     }
   ],
   "paths": {
@@ -319,25 +323,153 @@
     },
     "/sales/": {
       "get": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Get all sales",
+        "description": "Endpoint to retrieve all sales.",
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Returns a list with all sales.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sales"
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "$ref": "#/components/schemas/Sales"
+                }
+              }
+            }
           }
         }
       },
       "post": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Add a new sale",
+        "description": "This endpoint allows you to add a new sale to the system.",
         "responses": {
-          "default": {
-            "description": ""
+          "201": {
+            "description": "Sale created successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "itemsSold": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "productId": {
+                            "type": "string",
+                            "example": "number"
+                          },
+                          "quantity": {
+                            "type": "string",
+                            "example": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "itemsSold": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "productId": {
+                            "type": "string",
+                            "example": "number"
+                          },
+                          "quantity": {
+                            "type": "string",
+                            "example": "number"
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "description": "New sale data. An array of objects, each containing productId and quantity. Multiple objects with productId and quantity can be included.",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "productId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "example": "6"
+                    }
+                  }
+                }
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "productId": {
+                      "type": "number",
+                      "example": 1
+                    },
+                    "quantity": {
+                      "type": "number",
+                      "example": "6"
+                    }
+                  }
+                }
+              }
+            }
           }
         }
       }
     },
     "/sales/{id}": {
       "get": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Get a sale by id",
+        "description": "Endpoint to retrieve a sale by ID.",
         "parameters": [
           {
             "name": "id",
@@ -345,17 +477,74 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "Sale ID."
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Returns a sale by ID.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "productId": {
+                        "type": "string",
+                        "example": "number"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "number"
+                      },
+                      "date": {
+                        "type": "string",
+                        "example": "timestamp"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "productId": {
+                        "type": "string",
+                        "example": "number"
+                      },
+                      "quantity": {
+                        "type": "string",
+                        "example": "number"
+                      },
+                      "date": {
+                        "type": "string",
+                        "example": "timestamp"
+                      }
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         }
       },
       "delete": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Delete a sale",
+        "description": "This endpoint allows you to delete a sale in the system.",
         "parameters": [
           {
             "name": "id",
@@ -363,19 +552,27 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the sale to be deleted"
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "204": {
+            "description": "No content."
+          },
+          "404": {
+            "description": "Sale not found"
           }
         }
       }
     },
     "/sales/{saleId}/products/{productId}/quantity": {
       "put": {
-        "description": "",
+        "tags": [
+          "Sales"
+        ],
+        "summary": "Update a sale",
+        "description": "This endpoint allows you to update a sale in the system.",
         "parameters": [
           {
             "name": "saleId",
@@ -383,7 +580,8 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the sale."
           },
           {
             "name": "productId",
@@ -391,22 +589,91 @@
             "required": true,
             "schema": {
               "type": "string"
-            }
+            },
+            "description": "ID of the product in sale to be  ."
           }
         ],
         "responses": {
-          "default": {
-            "description": ""
+          "200": {
+            "description": "Sale product quantity updated successfully.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "example": "timestamp"
+                    },
+                    "productId": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "quantity": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "saleId": {
+                      "type": "string",
+                      "example": "number"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              },
+              "application/xml": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "date": {
+                      "type": "string",
+                      "example": "timestamp"
+                    },
+                    "productId": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "quantity": {
+                      "type": "string",
+                      "example": "number"
+                    },
+                    "saleId": {
+                      "type": "string",
+                      "example": "number"
+                    }
+                  },
+                  "xml": {
+                    "name": "main"
+                  }
+                }
+              }
+            }
           }
         },
         "requestBody": {
+          "description": "Updated sale data.",
+          "required": true,
           "content": {
             "application/json": {
               "schema": {
                 "type": "object",
                 "properties": {
                   "quantity": {
-                    "example": "any"
+                    "type": "number",
+                    "example": 20
+                  }
+                }
+              }
+            },
+            "application/xml": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "quantity": {
+                    "type": "number",
+                    "example": 20
                   }
                 }
               }
@@ -435,6 +702,33 @@
         },
         "xml": {
           "name": "Products"
+        }
+      },
+      "Sales": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "saleId": {
+              "type": "number",
+              "example": 1
+            },
+            "date": {
+              "type": "string",
+              "example": "2021-09-09T04:54:54.000Z"
+            },
+            "productId": {
+              "type": "number",
+              "example": 2
+            },
+            "quantity": {
+              "type": "number",
+              "example": 2
+            }
+          }
+        },
+        "xml": {
+          "name": "Sales"
         }
       }
     }
